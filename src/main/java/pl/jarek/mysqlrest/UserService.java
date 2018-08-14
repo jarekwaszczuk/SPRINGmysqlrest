@@ -30,4 +30,9 @@ public class UserService {
         User user = userConverter.toEntity(userDTO);
         return userConverter.toDTO(userRepository.save(user));
     }
+
+    public UserDTO findById(Integer id) {
+        return userConverter.toDTO(userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id)));
+    }
 }
