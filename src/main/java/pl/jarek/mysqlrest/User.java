@@ -3,6 +3,7 @@ package pl.jarek.mysqlrest;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,7 +20,6 @@ public class User {
     private String activationKey;
 
     @OneToMany(mappedBy = "user")
-    private List<Password> oldPasswords;
-
+    private List<Password> oldPasswords = new ArrayList<>();
 
 }

@@ -13,8 +13,8 @@ public class UserService {
         this.userConverter = userConverter;
     }
 
-    public void createUser(UserDTO userDTO) {
+    public UserDTO createUser(UserDTO userDTO) {
         User user = userConverter.toEntity(userDTO);
-        userRepository.save(user);
+        return userConverter.toDTO(userRepository.save(user));
     }
 }

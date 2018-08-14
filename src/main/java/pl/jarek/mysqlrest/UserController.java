@@ -1,6 +1,6 @@
 package pl.jarek.mysqlrest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@RequestBody UserDTO userDTO) {
-        userService.createUser(userDTO);
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
     }
 }
