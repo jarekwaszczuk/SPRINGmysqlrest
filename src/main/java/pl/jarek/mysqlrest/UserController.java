@@ -44,12 +44,14 @@ public class UserController {
     }
 
     @PostMapping("/{id}/passwords")
-    public ResponseEntity<UserDTO> changePassword(@PathVariable Integer id, @RequestBody PasswordDTO passwordDTO) {
-        return ResponseEntity.accepted().body(userService.resetPassword(id, passwordDTO));
+    public ResponseEntity changePassword(@PathVariable Integer id, @RequestBody PasswordDTO passwordDTO) {
+        userService.changePassword(id, passwordDTO);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/activate/{activationKey}")
-    public ResponseEntity<UserDTO> activation(@PathVariable Integer id, @PathVariable String activationKey) {
-        return ResponseEntity.accepted().body(userService.activate(id, activationKey));
+    public ResponseEntity activation(@PathVariable Integer id, @PathVariable String activationKey) {
+        userService.activate(id, activationKey);
+        return ResponseEntity.noContent().build();
     }
 }

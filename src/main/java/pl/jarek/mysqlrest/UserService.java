@@ -53,11 +53,15 @@ public class UserService {
         return listaDTO;
     }
 
-    public UserDTO resetPassword(Integer id, PasswordDTO passwordDTO) {
+    public UserDTO changePassword(Integer id, PasswordDTO passwordDTO) {
         User user = userRepository.findById(id).get();
-        if (user.getPassword().equals(passwordDTO.getOldPassword())){
-            user.setPassword(passwordDTO.getNewPassword());
-            userRepository.save(user);
+        if (user.getPassword().equals(passwordDTO.getOldPassword()) & passwordValidator.valid(passwordDTO.getNewPassword())){
+            if (!user.getOldPasswords().contains(passwordDTO.getNewPassword())) {
+                user.setPassword(passwordDTO.getNewPassword());
+                userRepository.save(user);
+            } else {
+                throw new NewPasswordSameAsFivePrevoius(id);
+            }
         } else {
             throw new OldPasswordIncorrect(id);
         }
