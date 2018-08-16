@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -50,5 +51,27 @@ public class UserService {
         }
 
         return listaDTO;
+    }
+
+    public UserDTO resetPassword(Integer id, PasswordDTO passwordDTO) {
+        User user = userRepository.findById(id).get();
+        if (user.getPassword().equals(passwordDTO.getOldPassword())){
+            user.setPassword(passwordDTO.getNewPassword());
+            userRepository.save(user);
+        } else {
+            throw new OldPasswordIncorrect(id);
+        }
+        return userConverter.toDTO(user);
+    }
+
+    public UserDTO activate(Integer id, String activationKey) {
+        User user = userRepository.findById(id).get();
+        if(user.getActivationKey().equals(activationKey)){
+            user.setActive(true);
+            userRepository.save(user);
+        }else{
+            throw new ActivationKeyNotValid(id);
+        }
+        return userConverter.toDTO(user);
     }
 }

@@ -1,7 +1,6 @@
 package pl.jarek.mysqlrest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findByID(@PathVariable Integer id){
+    public ResponseEntity<UserDTO> findByID(@PathVariable Integer id) {
         return ResponseEntity.ok().body(userService.findById(id));
     }
 
@@ -42,5 +41,15 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).body(userDTO);
+    }
+
+    @PostMapping("/{id}/passwords")
+    public ResponseEntity<UserDTO> changePassword(@PathVariable Integer id, @RequestBody PasswordDTO passwordDTO) {
+        return ResponseEntity.accepted().body(userService.resetPassword(id, passwordDTO));
+    }
+
+    @PutMapping("/{id}/activate/{activationKey}")
+    public ResponseEntity<UserDTO> activation(@PathVariable Integer id, @PathVariable String activationKey) {
+        return ResponseEntity.accepted().body(userService.activate(id, activationKey));
     }
 }

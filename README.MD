@@ -53,7 +53,7 @@ GET http://localhost:7777/users/1
 ### Zmiana hasła użytkownika
 
 ```
-POST http://localhost:7777/users/1/passwords
+POST http://localhost:7777/users/1/passwordDTO
 Content-Type: application/json
 
 {
