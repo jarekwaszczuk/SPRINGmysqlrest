@@ -1,6 +1,7 @@
-package pl.jarek.mysqlrest;
+package pl.jarek.mysqlrest.user;
 
 import lombok.Data;
+import pl.jarek.mysqlrest.password.Password;
 
 import javax.persistence.*;
 import java.util.ArrayList;

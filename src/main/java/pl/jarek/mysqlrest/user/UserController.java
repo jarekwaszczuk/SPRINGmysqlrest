@@ -1,10 +1,11 @@
-package pl.jarek.mysqlrest;
+package pl.jarek.mysqlrest.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import pl.jarek.mysqlrest.password.PasswordDTO;
 
 import java.net.URI;
 import java.util.List;
@@ -45,7 +46,7 @@ public class UserController {
 
     @PostMapping("/{id}/passwords")
     public ResponseEntity changePassword(@PathVariable Integer id, @RequestBody PasswordDTO passwordDTO) {
-        userService.changePassword(id, passwordDTO);
+        userService.changePassword(id, passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
         return ResponseEntity.noContent().build();
     }
 

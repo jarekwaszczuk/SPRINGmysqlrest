@@ -1,4 +1,4 @@
-package pl.jarek.mysqlrest;
+package pl.jarek.mysqlrest.password;
 
 public class ActivationKeyNotValid extends RuntimeException {
     public ActivationKeyNotValid(Integer id) {

@@ -1,4 +1,4 @@
-package pl.jarek.mysqlrest;
+package pl.jarek.mysqlrest.user;
 
 import org.springframework.data.repository.CrudRepository;
 

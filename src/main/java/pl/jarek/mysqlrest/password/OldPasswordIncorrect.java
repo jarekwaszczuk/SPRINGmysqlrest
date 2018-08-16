@@ -1,4 +1,4 @@
-package pl.jarek.mysqlrest;
+package pl.jarek.mysqlrest.password;
 
 public class OldPasswordIncorrect extends RuntimeException {
 
