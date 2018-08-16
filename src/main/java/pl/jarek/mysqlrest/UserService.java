@@ -1,5 +1,6 @@
 package pl.jarek.mysqlrest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class UserService {
     private final UserConverter userConverter;
     private final PasswordValidator passwordValidator;
 
+    @Autowired //opcjonalny
     public UserService(UserRepository userRepository, UserConverter userConverter, PasswordValidator passwordValidator) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
