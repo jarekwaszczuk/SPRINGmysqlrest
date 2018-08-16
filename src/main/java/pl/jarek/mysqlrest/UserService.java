@@ -2,6 +2,9 @@ package pl.jarek.mysqlrest;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -34,5 +37,16 @@ public class UserService {
     public UserDTO findById(Integer id) {
         return userConverter.toDTO(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id)));
+    }
+
+    public List<UserDTO> findAll() {
+        List<UserDTO> listaDTO = new ArrayList<>();
+        Iterable<User> lista = userRepository.findAll();
+
+        for (User user : lista) {
+            listaDTO.add(userConverter.toDTO(user));
+        }
+
+        return listaDTO;
     }
 }
