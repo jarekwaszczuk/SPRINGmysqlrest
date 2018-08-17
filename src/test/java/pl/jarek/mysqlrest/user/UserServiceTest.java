@@ -181,8 +181,8 @@ public class UserServiceTest {
     @Test
     public void shouldChangePassword() {
         Mockito.when(userRepository.findById(USER_ID)).thenReturn(Optional.of(USER));
-        USER.setPassword(USER_PASSWORD);
         Mockito.when(passwordValidator.valid("newPassword")).thenReturn(true);
+        USER.setPassword(USER_PASSWORD);
 
         userService.changePassword(USER_ID, USER_PASSWORD, "newPassword");
 

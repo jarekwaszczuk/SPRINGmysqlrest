@@ -6,6 +6,7 @@ import pl.jarek.mysqlrest.password.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -37,6 +38,7 @@ public class UserService {
         }
 
         User user = userConverter.toEntity(userDTO);
+        user.setActivationKey(UUID.randomUUID().toString());
         return userConverter.toDTO(userRepository.save(user));
     }
 
@@ -91,15 +93,15 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public UserDTO activate(Integer id, String activationKey) {
-        User user = userRepository.findById(id).get();
+    public void activate(Integer id, String activationKey) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
         if (user.getActivationKey().equals(activationKey)) {
             user.setActive(true);
             userRepository.save(user);
         } else {
             throw new ActivationKeyNotValid(id);
         }
-        return userConverter.toDTO(user);
     }
 
     private boolean passwordInHistory(String newPassword, List<Password> history) {
