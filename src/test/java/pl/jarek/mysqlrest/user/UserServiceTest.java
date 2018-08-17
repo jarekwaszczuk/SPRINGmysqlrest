@@ -35,7 +35,8 @@ public class UserServiceTest {
     @Mock
     private PasswordRepository passwordRepository;
 
-    private UserConverter userConverter = new UserConverter();
+    @Mock
+    private UserConverter userConverter;
 
     private UserService userService;
 
@@ -98,6 +99,7 @@ public class UserServiceTest {
     @Test
     public void shouldFindUser() {
         Mockito.when(userRepository.findById(USER_ID)).thenReturn(Optional.of(USER));
+        Mockito.when(userConverter.toDTO(USER)).thenReturn(USER_DTO);
 
         UserDTO userDTO = userService.findById(USER_ID);
 
