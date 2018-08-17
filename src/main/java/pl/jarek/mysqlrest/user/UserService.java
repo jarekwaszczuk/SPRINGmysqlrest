@@ -64,7 +64,7 @@ public class UserService {
 
         if (!passwordValidator.valid(newPassword)) throw new InvalidPasswordException("Password is to week");
 
-        List<Password> history = user.getOldPasswords();
+        List<Password> history = passwordRepository.findByUserOrderByIdAsc(user);//user.getOldPasswords(); //posortować!!!
 
         if (passwordInHistory(newPassword, history)) {
             throw new InvalidPasswordException("Password same as one from 5 last");
