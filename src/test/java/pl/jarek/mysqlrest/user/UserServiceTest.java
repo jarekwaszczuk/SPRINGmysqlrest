@@ -25,6 +25,7 @@ public class UserServiceTest {
     private static final User USER = new User();
     private static final User USER_WITH_ID = new User();
     private static final UserDTO USER_DTO = new UserDTO();
+    private static List<Password> passList = new ArrayList<>();
 
 //  TODO poprawne przypisywanie wartości początkowych do STATIC
 //    static {
@@ -72,6 +73,12 @@ public class UserServiceTest {
         USER.setLastName(USER_LAST_NAME);
         USER.setEmail(USER_EMAIL);
         USER.setPassword(USER_PASSWORD);
+
+        Password pass1 = new Password();
+        pass1.setUser(USER);
+        pass1.setValue("newPassword");
+        passList.add(pass1);
+        USER.setOldPasswords(passList);
 
         USER_WITH_ID.setId(USER_ID);
         USER_WITH_ID.setFirstName(USER_FIRST_NAME);
@@ -165,11 +172,8 @@ public class UserServiceTest {
     @Test(expected = InvalidPasswordException.class)
     public void shouldNotChangePasswordWithHistoricalPassword() {
         Mockito.when(userRepository.findById(USER_ID)).thenReturn(Optional.of(USER));
-        USER.setPassword(USER_PASSWORD);
-        Password password = new Password();
-        password.setUser(USER);
-        password.setValue("newPassword");
-        passwordRepository.save(password);
+        Mockito.when(passwordRepository.findByUserOrderByIdAsc(USER)).thenReturn(passList);
+        Mockito.when(passwordValidator.valid("newPassword")).thenReturn(true);
 
         userService.changePassword(USER_ID, USER_PASSWORD, "newPassword");
     }
