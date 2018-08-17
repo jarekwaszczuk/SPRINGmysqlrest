@@ -124,11 +124,15 @@ public class UserServiceTest {
 
     @Test
     public void shouldFindAllUsers() {
-        Mockito.when(userRepository.findAll()).thenReturn(new ArrayList<User>());
+        List<User> users = new ArrayList<>();
+        users.add(USER_WITH_ID);
+        Mockito.when(userRepository.findAll()).thenReturn(users);
+        Mockito.when(userConverter.toDTO(USER_WITH_ID)).thenReturn(USER_DTO);
 
         List<UserDTO> listUsers = userService.findAll();
 
-        Assert.assertTrue(listUsers.equals(userRepository.findAll()));
+        Assert.assertTrue(listUsers.size()==1);
+        Assert.assertTrue(users.get(0).getFirstName().equals(listUsers.get(0).getFirstName()));
     }
 
     @Test(expected = UserNotFoundException.class)
