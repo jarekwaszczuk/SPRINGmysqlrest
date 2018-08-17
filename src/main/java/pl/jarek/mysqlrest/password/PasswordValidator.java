@@ -2,12 +2,17 @@ package pl.jarek.mysqlrest.password;
 
 import org.springframework.stereotype.Component;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class PasswordValidator {
 
     public boolean valid(String password){
-        //TODO dodać logikę sprawdzania hasła
-        //TODO małe i duże litery, cyfry i znaki spejalne
-        return true;
+        String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 }
