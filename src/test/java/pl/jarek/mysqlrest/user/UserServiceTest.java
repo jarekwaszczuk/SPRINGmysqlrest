@@ -26,6 +26,22 @@ public class UserServiceTest {
     private static final User USER_WITH_ID = new User();
     private static final UserDTO USER_DTO = new UserDTO();
 
+//  TODO poprawne przypisywanie wartości początkowych do STATIC
+//    static {
+//        USER = new User();
+//        USER.setId(USER_ID);
+//        USER.setFirstName("firstName");
+//        USER.setLastName("lastName");
+//        USER.setEmail("email");
+//        USER.setPassword("password");
+//
+//        USER_DTO = new UserDTO();
+//        USER_DTO.setFirstName("firstName");
+//        USER_DTO.setLastName("lastName");
+//        USER_DTO.setEmail("email");
+//        USER_DTO.setPassword("password");
+//    }
+//
     @Mock
     private UserRepository userRepository;
 

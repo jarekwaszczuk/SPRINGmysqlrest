@@ -12,6 +12,7 @@ public class PasswordValidatorTest {
 
     @Test
     public void ifWrongPasswordReturnFalse(){
+
         boolean result = passwordValidator.valid(wrongPassword);
 
         Assert.assertFalse(result);
@@ -19,6 +20,7 @@ public class PasswordValidatorTest {
 
     @Test
     public void ifCorrectPasswordReturnTrue(){
+
         boolean result = passwordValidator.valid(correctPassword);
 
         Assert.assertTrue(result);
