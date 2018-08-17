@@ -11,6 +11,7 @@ public class MysqlrestApplicationTests {
 
     @Test
     public void contextLoads() {
+
     }
 
 }
