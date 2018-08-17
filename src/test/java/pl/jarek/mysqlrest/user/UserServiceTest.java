@@ -6,10 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import pl.jarek.mysqlrest.password.InvalidPasswordException;
-import pl.jarek.mysqlrest.password.Password;
-import pl.jarek.mysqlrest.password.PasswordRepository;
-import pl.jarek.mysqlrest.password.PasswordValidator;
+import pl.jarek.mysqlrest.password.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,5 +184,25 @@ public class UserServiceTest {
         userService.changePassword(USER_ID, USER_PASSWORD, "newPassword");
 
         Assert.assertTrue(USER.getPassword().equals("newPassword"));
+    }
+
+    @Test
+    public void shouldChangePasswordAndDeleteOldestPassword() {
+        //TODO zrobić test, gdy jest 5 historycznych haseł i jedno jest usuwane
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void shouldNotActivateNonExistingUser() {
+        //TODO uzupełnić test
+    }
+
+    @Test(expected = ActivationKeyNotValid.class)
+    public void shouldNotActivateWithWrongActivationKey() {
+        //TODO uzupełnić test
+    }
+
+    @Test
+    public void shouldActivateUser() {
+        //TODO uzupełnić test
     }
 }
